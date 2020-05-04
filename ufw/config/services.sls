@@ -30,7 +30,7 @@ include:
     {%- set to_port   = service_details.get('to_port', service_name) %}
     {%- set comment   = service_details.get('comment', None) %}
 
-ufw-svc-{{ method }}-{{ service_name }}-{{ from_addr }}:
+ufw-svc-{{ method }}-{{ service_name }}-{{ from_addr }}-{{ interface }}:
   ufw.{{ method }}:
     {%- if protocol is not none %}
     - protocol: {{ protocol }}
