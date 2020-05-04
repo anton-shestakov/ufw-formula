@@ -21,6 +21,7 @@ include:
 
   {%- for from_addr in from_addrs %}
     {%- set protocol  = service_details.get('protocol', None) %}
+    {%- set interface  = service_details.get('interface', None) %}
     {%- set deny      = service_details.get('deny', None) %}
     {%- set limit     = service_details.get('limit', None) %}
     {%- set method    = 'deny' if deny else ('limit' if limit else 'allow') %}
@@ -33,6 +34,9 @@ ufw-svc-{{ method }}-{{ service_name }}-{{ from_addr }}:
   ufw.{{ method }}:
     {%- if protocol is not none %}
     - protocol: {{ protocol }}
+    {%- endif %}
+    {%- if interface is not none %}
+    - interface: {{ interface }}
     {%- endif %}
     {%- if from_addr is not none %}
     - from_addr: {{ from_addr }}
